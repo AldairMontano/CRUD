@@ -35,10 +35,9 @@ public class Direccion {
 
 	
 	
-	public Direccion(int idDireccion, @Size(max = 255) String calle, @Size(max = 5) String num_interior,
+	public Direccion(@Size(max = 255) String calle, @Size(max = 5) String num_interior,
 			@Size(max = 5) String num_exterior, @Size(max = 150) String colonia, Integer codigo_postal, Integer ciudad,
 			Integer estadoInteger) {
-		this.idDireccion = idDireccion;
 		this.calle = calle;
 		this.num_interior = num_interior;
 		this.num_exterior = num_exterior;

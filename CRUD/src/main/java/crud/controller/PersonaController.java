@@ -1,6 +1,18 @@
 package crud.controller;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfPTable;
+
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +48,40 @@ public class PersonaController {
 	@GetMapping("/listaPersonas")
 	public ResponseEntity<List<Persona>> listaPersonas() {
 		List<Persona> personas = personaService.listaPersona();
+		Document document = new Document();
+		try {
+			String ruta = System.getProperty("user.home");
+			PdfWriter.getInstance(document, new FileOutputStream(ruta + "/Desktop/Reporte_personas.pdf"));
+			document.open();
+			PdfPTable tabla = new PdfPTable(4);
+			tabla.addCell("Id");
+			tabla.addCell("Nombre");
+			tabla.addCell("Apellidos");
+			tabla.addCell("Id_Direccion");
+			try {
+				Connection cn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","123456");
+				PreparedStatement pStatement = cn.prepareStatement("select * from personas2");
+				
+				ResultSet rSet = pStatement.executeQuery();
+				
+				if (rSet.next()) {
+					do {
+						tabla.addCell(rSet.getString(1));
+						tabla.addCell(rSet.getString(3));
+						tabla.addCell(rSet.getString(2));
+						tabla.addCell(rSet.getString(4));
+					} while (rSet.next());
+					
+					document.add(tabla);
+				}
+			} catch (Exception e) {
+				
+			}
+			document.close();
+			JOptionPane.showMessageDialog(null, "Reporte Creado");
+		} catch (Exception e) {
+			
+		}
 		return new ResponseEntity<List<Persona>>(personas, HttpStatus.OK);
 	}
 	

@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
@@ -18,18 +20,20 @@ public class Pasatiempo {
 	@Size(max = 50)
 	private String nombre;
 	
-	private Integer pasatiempo, id_persona;
+	private Integer pasatiempo;
+	
+	@OneToOne
+	@JoinColumn(name = "id_persona")
+	private Persona persona;
 	
 	public Pasatiempo() {
 		
 	}
 
 
-	public Pasatiempo(int idPasatiempo, @Size(max = 50) String nombre, Integer pasatiempo, Integer id_persona) {
-		this.idPasatiempo = idPasatiempo;
+	public Pasatiempo(@Size(max = 50) String nombre, Integer pasatiempo) {
 		this.nombre = nombre;
 		this.pasatiempo = pasatiempo;
-		this.id_persona = id_persona;
 	}
 
 	public int getIdPasatiempo() {
@@ -54,14 +58,6 @@ public class Pasatiempo {
 
 	public void setPasatiempo(Integer pasatiempo) {
 		this.pasatiempo = pasatiempo;
-	}
-
-	public Integer getId_persona() {
-		return id_persona;
-	}
-
-	public void setId_persona(Integer id_persona) {
-		this.id_persona = id_persona;
 	}
 	
 }

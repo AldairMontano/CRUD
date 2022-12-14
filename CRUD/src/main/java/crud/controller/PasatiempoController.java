@@ -50,7 +50,7 @@ public class PasatiempoController {
 	@PutMapping("/guardarPasatiempoDTO")
 	public ResponseEntity<Integer> guardarPasatiempo(@RequestBody PasatiempoDTO pasatiempoDTO) {
 		Integer id = 0;
-		Pasatiempo pasatiempo2 = new Pasatiempo(pasatiempoDTO.getIdPasatiempo(), pasatiempoDTO.getNombre(), pasatiempoDTO.getPasatiempo(), pasatiempoDTO.getId_persona());
+		Pasatiempo pasatiempo2 = new Pasatiempo(pasatiempoDTO.getNombre(), pasatiempoDTO.getPasatiempo());
 		try {
 			id = this.pasatiempoService.guardarPasatiempo(pasatiempo2);
 		} catch (Exception e) {

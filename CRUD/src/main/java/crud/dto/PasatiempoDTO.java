@@ -10,7 +10,7 @@ public class PasatiempoDTO {
 	@Size(max = 50)
 	private String nombre;
 	
-	private Integer pasatiempo, id_persona;
+	private Integer pasatiempo;
 	
 	public PasatiempoDTO() {
 		
@@ -20,7 +20,6 @@ public class PasatiempoDTO {
 		this.idPasatiempo = pasatiempo.getIdPasatiempo();
 		this.nombre = pasatiempo.getNombre();
 		this.pasatiempo = pasatiempo.getPasatiempo();
-		this.id_persona = pasatiempo.getId_persona();
 	}
 
 	public int getIdPasatiempo() {
@@ -45,14 +44,6 @@ public class PasatiempoDTO {
 
 	public void setPasatiempo(Integer pasatiempo) {
 		this.pasatiempo = pasatiempo;
-	}
-
-	public Integer getId_persona() {
-		return id_persona;
-	}
-
-	public void setId_persona(Integer id_persona) {
-		this.id_persona = id_persona;
 	}
 	
 }
